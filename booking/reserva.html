@@ -42,7 +42,6 @@
 <div class="drawer-overlay" id="overlay"></div>
 
 <script>
-  // Detect current section folder to build RELATIVE links that work on GitHub Pages
   const HERE = location.pathname.includes('/booking/') ? 'booking' : 'public';
   const map = {
     inicio: HERE==='public' ? 'index.html' : '../public/index.html',
@@ -98,7 +97,7 @@
   </div>
 
   <div class="card ring-gold" style="padding:16px">
-    <h3 class="gold-text" style="margin:0 0 12px 0">Datos y disponibilidad</h3>
+    <h3 className="gold-text" style="margin:0 0 12px 0">Datos y disponibilidad</h3>
     <div class="calendar">
       <div class="cal-head">
         <button class="gold-btn" id="prevM">‹</button>
@@ -152,9 +151,7 @@
   document.getElementById('tone_oscura').onclick=()=> (tone='Oscura', setToneButtons('tone_oscura'));
   function setToneButtons(id){ ['tone_clara','tone_media','tone_oscura'].forEach(k=> document.getElementById(k).classList.toggle('act', k===id)); }
 
-  function getZones(){
-    return Array.from(zonesEl.querySelectorAll('input[type=checkbox]:checked')).map(i=> i.value);
-  }
+  function getZones(){ return Array.from(zonesEl.querySelectorAll('input[type=checkbox]:checked')).map(i=> i.value); }
   function fmtISO(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,'0')+"-"+String(d.getDate()).padStart(2,'0'); }
   function renderSummary(){
     const parts=[];
@@ -178,7 +175,7 @@
     const first=new Date(y,m,1);
     const startIdx=(first.getDay()+6)%7;
     const days=new Date(y,m+1,0).getDate();
-    const cells=Array(startIdx).fill(null).concat(Array.from({length:days}, (_,i)=> i+1));
+    const cells=Array(startIdx).fill(null).concat(Array.from({length:days},(_,i)=>i+1));
     while(cells.length%7!==0) cells.push(null);
     return {y,m,cells};
   }
