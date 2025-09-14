@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEMOS — Cursos</title>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="stylesheet" href="../assets/common.css">
+</head>
+<body>
+  
+<header class="header">
+  <div class="container header-row">
+    <div><button class="btn-icon" id="openDrawer" aria-label="Abrir menú">☰</button></div>
+    <div class="brand">JANDO&nbsp;TEMOS</div>
+    <div style="justify-self:end;display:flex;gap:8px">
+      <button class="btn-icon" aria-label="Buscar">🔎</button>
+      <button class="btn-icon" aria-label="Carrito">🛒</button>
+    </div>
+  </div>
+</header>
+
+<aside class="drawer" id="drawer">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <span class="gold-text">Menú</span>
+    <button class="btn-icon" id="closeDrawer" aria-label="Cerrar">✕</button>
+  </div>
+  <nav>
+    <button class="nav-btn" data-nav="inicio">Inicio</button>
+    <button class="nav-btn" data-nav="drops">Drops</button>
+    <div style="margin-top:8px">
+      <button class="nav-btn" id="toggleSub">Tatuajes ▾</button>
+      <div class="nav-sub" id="subMenu" style="display:block">
+        <button class="nav-btn" data-nav="tatuajes">Mis trabajos</button>
+        <button class="nav-btn" data-nav="reserva">Reserva</button>
+        <button class="nav-btn" data-nav="cursos">Cursos</button>
+      </div>
+    </div>
+    <button class="nav-btn" data-nav="contacto" style="margin-top:8px">Contacto</button>
+  </nav>
+</aside>
+<div class="drawer-overlay" id="overlay"></div>
+
+<script>
+(function(){
+  const PUBLIC_BASE = "https://jandotemosart.github.io/temos/public";
+  const BOOKING_BASE = "https://jandotemosart.github.io/temos/booking";
+  function hrefFor(key){
+    const m = {
+      inicio: PUBLIC_BASE + "/index.html",
+      drops:  PUBLIC_BASE + "/drops.html",
+      tatuajes: PUBLIC_BASE + "/tattoos.html",
+      reserva: BOOKING_BASE + "/reserva.html",
+      cursos:  BOOKING_BASE + "/cursos.html",
+      contacto: BOOKING_BASE + "/contacto.html",
+    };
+    return m[key];
+  }
+  const openDrawer=()=>document.getElementById('drawer').classList.add('open');
+  const closeDrawer=()=>document.getElementById('drawer').classList.remove('open');
+  document.getElementById('openDrawer').onclick=openDrawer;
+  document.getElementById('closeDrawer').onclick=closeDrawer;
+  document.getElementById('overlay').onclick=closeDrawer;
+  const sub=document.getElementById('subMenu');
+  document.getElementById('toggleSub').onclick=()=>{ sub.style.display=sub.style.display==='none'?'block':'none'; };
+  document.querySelectorAll('[data-nav]').forEach(btn=> btn.onclick=()=>{ location.href = hrefFor(btn.dataset.nav); });
+
+  try{
+    console.assert(typeof hrefFor==='function','[TEST] hrefFor existe');
+    const t = hrefFor('reserva');
+    console.assert(t.endsWith('/booking/reserva.html'),'[TEST] reserva → booking/reserva.html: '+t);
+  }catch{}
+})();
+</script>
+
+  
+  
+<section class="container" style="padding:24px 0">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 0">
+    <span class="gold-text" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase">Formación</span>
+    <h2 class="gold-text" style="font-size:clamp(20px,2.5vw,28px);font-weight:700">Cursos</h2>
+  </div>
+  <div class="grid">
+    <article class="card ring-gold">
+      <div class="media"><img src="https://picsum.photos/id/1027/900" alt="Curso Blackwork"></div>
+      <div class="row">
+        <div><div class="gold-text" style="font-weight:600">Blackwork Intensivo</div><div class="gold-text" style="opacity:.8;font-size:12px">Presencial · 1 día (7h) · Intermedio</div></div>
+        <div style="text-align:right"><div class="gold-text" style="font-weight:700">€220</div><button class="gold-btn" style="font-size:12px">Apuntarme</button></div>
+      </div>
+    </article>
+    <article class="card ring-gold">
+      <div class="media"><img src="https://picsum.photos/id/1035/900" alt="Línea fina"></div>
+      <div class="row">
+        <div><div class="gold-text" style="font-weight:600">Línea fina: técnica y flujo</div><div class="gold-text" style="opacity:.8;font-size:12px">Online · 2 sesiones (2x3h) · Todos</div></div>
+        <div style="text-align:right"><div class="gold-text" style="font-weight:700">€180</div><button class="gold-btn" style="font-size:12px">Apuntarme</button></div>
+      </div>
+    </article>
+  </div>
+  <div style="text-align:center;margin-top:24px"><a class="gold-btn" href="../booking/contacto.html">¿Dudas? Escríbeme</a></div>
+</section>
+
+  
+<footer class="footer">
+  <div class="container" style="display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap">
+    <p class="gold-text">© TEMOS. Todos los derechos reservados.</p>
+    <nav style="display:flex;gap:12px">
+      <a href="#" class="gold-text">Privacidad</a>
+      <a href="#" class="gold-text">Términos</a>
+      <a href="#" class="gold-text">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
