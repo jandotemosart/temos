@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEMOS — Reserva tu cita</title>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="stylesheet" href="../assets/common.css">
+</head>
+<body>
+  
+<header class="header">
+  <div class="container header-row">
+    <div><button class="btn-icon" id="openDrawer" aria-label="Abrir menú">☰</button></div>
+    <div class="brand">JANDO&nbsp;TEMOS</div>
+    <div style="justify-self:end;display:flex;gap:8px">
+      <button class="btn-icon" aria-label="Buscar">🔎</button>
+      <button class="btn-icon" aria-label="Carrito">🛒</button>
+    </div>
+  </div>
+</header>
+
+<aside class="drawer" id="drawer">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <span class="gold-text">Menú</span>
+    <button class="btn-icon" id="closeDrawer" aria-label="Cerrar">✕</button>
+  </div>
+  <nav>
+    <button class="nav-btn" data-nav="inicio">Inicio</button>
+    <button class="nav-btn" data-nav="drops">Drops</button>
+    <div style="margin-top:8px">
+      <button class="nav-btn" id="toggleSub">Tatuajes ▾</button>
+      <div class="nav-sub" id="subMenu" style="display:block">
+        <button class="nav-btn" data-nav="tatuajes">Mis trabajos</button>
+        <button class="nav-btn" data-nav="reserva">Reserva</button>
+        <button class="nav-btn" data-nav="cursos">Cursos</button>
+      </div>
+    </div>
+    <button class="nav-btn" data-nav="contacto" style="margin-top:8px">Contacto</button>
+  </nav>
+</aside>
+<div class="drawer-overlay" id="overlay"></div>
+
+<script>
+  // Detect current section folder to build RELATIVE links that work on GitHub Pages
+  const HERE = location.pathname.includes('/booking/') ? 'booking' : 'public';
+  const map = {
+    inicio: HERE==='public' ? 'index.html' : '../public/index.html',
+    drops: HERE==='public' ? 'drops.html' : '../public/drops.html',
+    tatuajes: HERE==='public' ? 'tattoos.html' : '../public/tattoos.html',
+    reserva: HERE==='public' ? '../booking/reserva.html' : 'reserva.html',
+    cursos: HERE==='public' ? '../booking/cursos.html' : 'cursos.html',
+    contacto: HERE==='public' ? '../booking/contacto.html' : 'contacto.html',
+  };
+  const openDrawer=()=>document.getElementById('drawer').classList.add('open');
+  const closeDrawer=()=>document.getElementById('drawer').classList.remove('open');
+  document.getElementById('openDrawer').onclick=openDrawer;
+  document.getElementById('closeDrawer').onclick=closeDrawer;
+  document.getElementById('overlay').onclick=closeDrawer;
+  const sub=document.getElementById('subMenu');
+  document.getElementById('toggleSub').onclick=()=>{ sub.style.display=sub.style.display==='none'?'block':'none'; };
+  document.querySelectorAll('[data-nav]').forEach(btn=> btn.onclick=()=>{ location.href = map[btn.dataset.nav]; });
+</script>
+
+  
+  
+<section class="container" style="padding:24px 0">
+  <div class="card ring-gold" style="padding:16px;margin-bottom:16px">
+    <h3 class="gold-text" style="margin:0 0 12px 0">Selecciona zonas</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px" id="zones">
+      <label class="pill"><input type="checkbox" value="hombro"> Hombro</label>
+      <label class="pill"><input type="checkbox" value="biceps"> Bíceps</label>
+      <label class="pill"><input type="checkbox" value="codo"> Codo</label>
+      <label class="pill"><input type="checkbox" value="antebrazo"> Antebrazo</label>
+      <label class="pill"><input type="checkbox" value="muneca"> Muñeca</label>
+      <label class="pill"><input type="checkbox" value="mano"> Mano</label>
+      <label class="pill"><input type="checkbox" value="dedos"> Dedos</label>
+      <label class="pill"><input type="checkbox" value="pecho"> Pecho</label>
+      <label class="pill"><input type="checkbox" value="torso"> Torso</label>
+      <label class="pill"><input type="checkbox" value="espalda"> Espalda</label>
+      <label class="pill"><input type="checkbox" value="cuello"> Cuello</label>
+      <label class="pill"><input type="checkbox" value="cabeza"> Cabeza</label>
+      <label class="pill"><input type="checkbox" value="cadera"> Cadera</label>
+      <label class="pill"><input type="checkbox" value="muslo"> Muslo</label>
+      <label class="pill"><input type="checkbox" value="rodilla"> Rodilla</label>
+      <label class="pill"><input type="checkbox" value="pantorrilla"> Pantorrilla</label>
+      <label class="pill"><input type="checkbox" value="tobillo"> Tobillo</label>
+    </div>
+    <div style="margin-top:10px">
+      <span class="gold-text" style="font-size:12px;margin-right:8px">Tono de piel:</span>
+      <span class="seg">
+        <button id="tone_clara" class="act" type="button">Clara</button>
+        <button id="tone_media" type="button">Media</button>
+        <button id="tone_oscura" type="button">Oscura</button>
+      </span>
+      <label style="margin-left:12px;font-size:12px" class="gold-text"><input type="checkbox" id="cover"> Cover-up</label>
+    </div>
+  </div>
+
+  <div class="card ring-gold" style="padding:16px">
+    <h3 class="gold-text" style="margin:0 0 12px 0">Datos y disponibilidad</h3>
+    <div class="calendar">
+      <div class="cal-head">
+        <button class="gold-btn" id="prevM">‹</button>
+        <div class="gold-text" id="calTitle" style="font-size:14px"></div>
+        <button class="gold-btn" id="nextM">›</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;color:#d4d4d4;margin-bottom:6px">LMXJVSD</div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div id="hint" style="font-size:12px;color:#ffe08a;opacity:.9;margin-top:6px">Martes y Jueves disponibles · Reserva por día completo</div>
+    </div>
+
+    <div style="display:grid;gap:10px;margin-top:12px">
+      <textarea id="summary" rows="5" readonly class="card" style="padding:10px;background:#0b0b0e;border:1px solid #27272a;color:#ffe08a"></textarea>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="gold-btn" id="copySum" style="font-size:12px">Copiar resumen</button>
+        <a class="gold-btn" id="mailto" style="font-size:12px">Enviar por email</a>
+      </div>
+      <button class="gold-btn" id="pay" style="width:100%">Pedir cita y pagar depósito de €80</button>
+      <div style="font-size:12px" class="gold-text">Tras el pago, bloquearemos el día (demo local).</div>
+    </div>
+
+    <div style="border-top:1px solid #27272a;padding-top:12px;margin-top:12px">
+      <h4 class="gold-text" style="margin:0 0 8px 0">Vale Regalo de Tattoo</h4>
+      <div style="display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))">
+        <button class="gold-btn">Vale 100€</button>
+        <button class="gold-btn">Vale 150€</button>
+        <button class="gold-btn">Vale 200€</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  const CONTACT_EMAIL="temostemost@gmail.com";
+  const STRIPE_DEPOSIT_LINK="";
+  const WORK_DAYS=[2,4];
+  const BOOKED_KEY="temos_booked_days_v1";
+
+  function dateKey(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,'0')+"-"+String(d.getDate()).padStart(2,'0'); }
+  function getBookedSet(){ try{ return new Set(JSON.parse(localStorage.getItem(BOOKED_KEY)||"[]")); }catch{ return new Set(); } }
+  function bookDate(d){ const s=getBookedSet(); s.add(dateKey(d)); localStorage.setItem(BOOKED_KEY, JSON.stringify([...s])); }
+  function isBooked(d){ return getBookedSet().has(dateKey(d)); }
+
+  const zonesEl=document.getElementById('zones');
+  const summary=document.getElementById('summary');
+  const mailto=document.getElementById('mailto');
+  let tone='Clara', cover=false, selDate=null;
+
+  document.getElementById('cover').onchange=(e)=> cover=e.target.checked;
+  document.getElementById('tone_clara').onclick=()=> (tone='Clara', setToneButtons('tone_clara'));
+  document.getElementById('tone_media').onclick=()=> (tone='Media', setToneButtons('tone_media'));
+  document.getElementById('tone_oscura').onclick=()=> (tone='Oscura', setToneButtons('tone_oscura'));
+  function setToneButtons(id){ ['tone_clara','tone_media','tone_oscura'].forEach(k=> document.getElementById(k).classList.toggle('act', k===id)); }
+
+  function getZones(){
+    return Array.from(zonesEl.querySelectorAll('input[type=checkbox]:checked')).map(i=> i.value);
+  }
+  function fmtISO(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,'0')+"-"+String(d.getDate()).padStart(2,'0'); }
+  function renderSummary(){
+    const parts=[];
+    if(selDate) parts.push("Fecha: "+fmtISO(selDate));
+    parts.push("Horario: Día completo");
+    const zones=getZones();
+    parts.push("Zonas: "+(zones.join(", ")||"s/d"));
+    parts.push("Cover-up: "+(cover?"Sí":"No"));
+    parts.push("Tono: "+tone);
+    summary.value="Reserva TEMOS\n"+parts.join("\n");
+    mailto.href="mailto:"+CONTACT_EMAIL+"?subject="+encodeURIComponent("Reserva TEMOS - "+(selDate?fmtISO(selDate):"s/f"))+"&body="+encodeURIComponent(summary.value);
+  }
+  zonesEl.onchange=renderSummary; renderSummary();
+
+  const title=document.getElementById('calTitle');
+  const grid=document.getElementById('calGrid');
+  let base=new Date(), offset=0, selDay=null;
+
+  function monthMatrix(date){
+    const y=date.getFullYear(), m=date.getMonth();
+    const first=new Date(y,m,1);
+    const startIdx=(first.getDay()+6)%7;
+    const days=new Date(y,m+1,0).getDate();
+    const cells=Array(startIdx).fill(null).concat(Array.from({length:days}, (_,i)=> i+1));
+    while(cells.length%7!==0) cells.push(null);
+    return {y,m,cells};
+  }
+  const monthName=(m)=>["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"][m];
+
+  function refresh(){
+    const view=new Date(base.getFullYear(), base.getMonth()+offset, 1);
+    const mat=monthMatrix(view);
+    title.textContent=monthName(mat.m)+" "+mat.y;
+    grid.innerHTML="";
+    mat.cells.forEach((n,idx)=>{
+      const cell=document.createElement('div');
+      cell.className="cal-cell";
+      if(n!==null){
+        const d=new Date(mat.y, mat.m, n);
+        const av=WORK_DAYS.includes(d.getDay()) && !isBooked(d);
+        if(av) cell.classList.add('av');
+        if(selDay && n===selDay && d.getMonth()===view.getMonth()) cell.classList.add('sel');
+        cell.textContent=n;
+        if(av) cell.onclick=()=>{ selDay=n; selDate=d; refresh(); renderSummary(); };
+      }
+      grid.appendChild(cell);
+    });
+  }
+  refresh();
+  document.getElementById('prevM').onclick=()=> (offset-=1, refresh());
+  document.getElementById('nextM').onclick=()=> (offset+=1, refresh());
+
+  document.getElementById('copySum').onclick=async ()=>{ try{ await navigator.clipboard.writeText(summary.value); alert("Resumen copiado"); }catch{ alert("Copia manual: selecciona el texto y copia."); } };
+  document.getElementById('pay').onclick=()=>{
+    if(!selDate) return alert("Selecciona una fecha");
+    const zones=getZones(); if(zones.length===0) return alert("Selecciona al menos una zona");
+    if(!STRIPE_DEPOSIT_LINK) return alert("Configura tu enlace de Stripe");
+    bookDate(selDate);
+    window.open(STRIPE_DEPOSIT_LINK, "_blank", "noopener");
+    alert("Día bloqueado en demo. En producción se confirmará con Stripe y tu calendario.");
+  };
+</script>
+
+  
+<footer class="footer">
+  <div class="container" style="display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap">
+    <p class="gold-text">© TEMOS. Todos los derechos reservados.</p>
+    <nav style="display:flex;gap:12px">
+      <a href="#" class="gold-text">Privacidad</a>
+      <a href="#" class="gold-text">Términos</a>
+      <a href="#" class="gold-text">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
