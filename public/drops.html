@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TEMOS — Drops</title>
+  <link rel="preconnect" href="https://res.cloudinary.com">
+  <link rel="stylesheet" href="./assets/common.css">
+</head>
+<body>
+  
+<header class="header">
+  <div class="container header-row">
+    <div><button class="btn-icon" id="openDrawer" aria-label="Abrir menú">☰</button></div>
+    <div class="brand">JANDO&nbsp;TEMOS</div>
+    <div style="justify-self:end;display:flex;gap:8px">
+      <button class="btn-icon" aria-label="Buscar">🔎</button>
+      <button class="btn-icon" aria-label="Carrito">🛒</button>
+    </div>
+  </div>
+</header>
+
+<aside class="drawer" id="drawer">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <span class="gold-text">Menú</span>
+    <button class="btn-icon" id="closeDrawer" aria-label="Cerrar">✕</button>
+  </div>
+  <nav>
+    <button class="nav-btn" data-nav="inicio">Inicio</button>
+    <button class="nav-btn" data-nav="drops">Drops</button>
+    <div style="margin-top:8px">
+      <button class="nav-btn" id="toggleSub">Tatuajes ▾</button>
+      <div class="nav-sub" id="subMenu" style="display:block">
+        <button class="nav-btn" data-nav="tatuajes">Mis trabajos</button>
+        <button class="nav-btn" data-nav="reserva">Reserva</button>
+        <button class="nav-btn" data-nav="cursos">Cursos</button>
+      </div>
+    </div>
+    <button class="nav-btn" data-nav="contacto" style="margin-top:8px">Contacto</button>
+  </nav>
+</aside>
+<div class="drawer-overlay" id="overlay"></div>
+
+<script>
+(function(){
+  const repoBase = (function(){
+    const m = location.pathname.match(/^(.*?\/)(?:public|booking)\/.*$/);
+    return m ? m[1] : (location.pathname.endsWith('/') ? location.pathname : location.pathname.replace(/[^/]+$/, ''));
+  })();
+  function hrefFor(key){
+    const pub = repoBase + 'public/';
+    const book = repoBase + 'booking/';
+    const m = {
+      inicio: pub + 'index.html',
+      drops:  pub + 'drops.html',
+      tatuajes: pub + 'tattoos.html',
+      reserva: book + 'reserva.html',
+      cursos:  book + 'cursos.html',
+      contacto: book + 'contacto.html',
+    };
+    return m[key];
+  }
+  const openDrawer=()=>document.getElementById('drawer').classList.add('open');
+  const closeDrawer=()=>document.getElementById('drawer').classList.remove('open');
+  document.getElementById('openDrawer').onclick=openDrawer;
+  document.getElementById('closeDrawer').onclick=closeDrawer;
+  document.getElementById('overlay').onclick=closeDrawer;
+  const sub=document.getElementById('subMenu');
+  document.getElementById('toggleSub').onclick=()=>{ sub.style.display=sub.style.display==='none'?'block':'none'; };
+  document.querySelectorAll('[data-nav]').forEach(btn=> btn.onclick=()=>{ location.href = hrefFor(btn.dataset.nav); });
+
+  try{
+    console.assert(typeof hrefFor==='function','[TEST] hrefFor existe');
+    const t = hrefFor('reserva');
+    console.assert(/\/booking\/reserva\.html$/.test(t),'[TEST] reserva → booking/reserva.html: '+t);
+  }catch{}
+})();
+</script>
+
+  
+  
+<section class="container">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:40px 0 16px">
+    <span class="gold-text" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase">Disponibles ahora</span>
+    <h2 class="gold-text" style="font-size:clamp(20px,2.5vw,28px);font-weight:700">Drops</h2>
+    <div style="height:1px;width:96px;background:linear-gradient(90deg,transparent,#ffe08a99,transparent)"></div>
+  </div>
+  <div class="grid">
+    
+    <article class="card ring-gold">
+      <div class="media"><img src="https://res.cloudinary.com/db16f7cyx/image/upload/v1757810008/coming_x5hfot.png" alt="Drop #01 - SOON"></div>
+      <div class="row">
+        <div><div class="gold-text" style="font-weight:600;font-size:14px">Drop #01 - SOON</div><div class="gold-text" style="opacity:.8;font-size:12px">Edición limitada</div></div>
+        <div style="text-align:right"><div class="gold-text" style="font-weight:700">€120</div><button class="gold-btn" style="font-size:12px;margin-top:6px">Comprar</button></div>
+      </div>
+    </article>
+    <article class="card ring-gold">
+      <div class="media"><img src="https://res.cloudinary.com/db16f7cyx/image/upload/v1757810008/coming_x5hfot.png" alt="Drop #02 - SOON"></div>
+      <div class="row">
+        <div><div class="gold-text" style="font-weight:600;font-size:14px">Drop #02 - SOON</div><div class="gold-text" style="opacity:.8;font-size:12px">Edición limitada</div></div>
+        <div style="text-align:right"><div class="gold-text" style="font-weight:700">€180</div><button class="gold-btn" style="font-size:12px;margin-top:6px">Comprar</button></div>
+      </div>
+    </article>
+    <article class="card ring-gold">
+      <div class="media"><img src="https://res.cloudinary.com/db16f7cyx/image/upload/v1757810008/coming_x5hfot.png" alt="Drop #03 - SOON"></div>
+      <div class="row">
+        <div><div class="gold-text" style="font-weight:600;font-size:14px">Drop #03 - SOON</div><div class="gold-text" style="opacity:.8;font-size:12px">Edición limitada</div></div>
+        <div style="text-align:right"><div class="gold-text" style="font-weight:700">€150</div><button class="gold-btn" style="font-size:12px;margin-top:6px">Comprar</button></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+  
+<footer class="footer">
+  <div class="container" style="display:flex;gap:16px;justify-content:space-between;flex-wrap:wrap">
+    <p class="gold-text">© TEMOS. Todos los derechos reservados.</p>
+    <nav style="display:flex;gap:12px">
+      <a href="#" class="gold-text">Privacidad</a>
+      <a href="#" class="gold-text">Términos</a>
+      <a href="#" class="gold-text">Cookies</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
